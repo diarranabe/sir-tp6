@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+</head>
+<body ng-app="pokedex">
+
+<style>
+    div {
+        margin: 20px;
+    }
+
+
+</style>
+<div class="container" ng-controller="searchController">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <h1>Pokém</h1>
+            <div class="row">
+                <!-- Search -->
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Id</span>
+                    <input ng-model="id" type="number" class="form-control" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="nom">name</span>
+                    <input ng-model="nom" type="text" class="form-control" placeholder="pokemon name"
+                           aria-describedby="basic-addon1">
+                </div>
+
+                <div class="col-lg-11" style="padding: 0;">
+                    <select name="pokeList" id="" ng-model="pokeSelect" class="form-control custom-select ">
+                        <option ng-repeat="x in pokemons | filter:nom | filter:id" value="{{x.entry_number}}">
+                            {{ x.pokemon_species.name }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-lg-12">
+                    <input type="button" class="btn btn-info col-lg-2" value="Select" ng-click="getSelectedPoke()">
+                    <h5 class="col-lg-12">Le pokemon choisi est : {{selectedPokeId}}</h5>
+                </div>
+
+            </div>
+
+
+            <div ng-controller="detailsController" class="row">
+                <h3>Informations du pokemon</h3>
+                <input type="button" class="btn btn-info" value="Voir les infos" ng-click="seePokeInfos()">
+                <h4 ng-bind="pokemonId"></h4>
+                <h3>{{pokemonName}}</h3>
+
+                <h5>Liste des attaques</h5>
+                <h6>Nombre : {{pokemonMoves.length}}</h6>
+                <ul>
+
+                    <li ng-repeat="m in pokemonMoves">
+                        {{m.move.name}}
+                    </li>
+                </ul>
+
+                <p>
+                    <!--{{pokemonMoves}}-->
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- Dependencies -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.min.js"></script>
+
+<!-- Pokedex app -->
+<script src="js/pokedex.js"></script>
+
+
+</body>
+</html>
